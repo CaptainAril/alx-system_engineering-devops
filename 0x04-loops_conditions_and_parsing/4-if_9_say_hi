@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# displays "Best School" 10 times, but for the 9th iteration,
+# display "Best school" and then "Hi" on a new line,
+# using while loop and for statement.
+i=0
+while [ "$i" -lt 10 ];
+do
+    echo "Best School"
+    if [ "$i" -eq 8 ];
+    then
+	echo "Hi"
+    fi
+    i=$((i + 1))
+done
