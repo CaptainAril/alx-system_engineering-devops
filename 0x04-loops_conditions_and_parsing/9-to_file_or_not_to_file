@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+# displays information about the school file using if and else
 if [ -e "school" ];
 then
     echo "school file exits"
@@ -9,6 +9,7 @@ then
     else
 	echo "school file is empty"
     fi
+
     if [ -f "school" ];
     then
 	echo "school is a regular file"
