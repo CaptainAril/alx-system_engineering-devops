@@ -8,7 +8,7 @@ file_line { 'IdentityFile':
   replace => 'true',
 }
 
-file_lline { 'Password':
+file_line { 'Password Authentication':
   ensure  => 'present',
   path    => '/etc/ssh/ssh_config',
   line    => '   PasswordAuthentication no',
