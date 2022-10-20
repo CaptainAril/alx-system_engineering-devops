@@ -9,5 +9,18 @@ sudo chmod -R 777 html
 echo 'Hello World!' > html/index.html
 sudo chmod -R 755 html
 cd ~
+Config=\
+      "server {
+		listen 80 default_server;
+		listen [::]:80 default_server;
+		root /var/www/html;
+		index index.html index.htm index.nginx-debian.html;
+		server_name _;
+		rewrite ^/redirect_me https://youtube.com permanent;
+		location / {
+			 try_files $uri $uri/ =404;
+		}
+}"
+sudo echo "$config" > /etc/nginx/sites-available/default
 sudo nginx -t
 sudo service nginx restart
