@@ -1,26 +1,25 @@
 #!/usr/bin/env bash
 # Installs and configures NginX on remote server
+# Redirect the `/redirect_me` url to another page
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
-cd /var/www/
-sudo chmod -R 777 html
+sudo chmod -R 777 /var/www/html
 echo 'Hello World!' > html/index.html
-sudo chmod -R 755 html
-cd ~
-Config=\
-      "server {
-		listen 80 default_server;
-		listen [::]:80 default_server;
-		root /var/www/html;
-		index index.html index.htm index.nginx-debian.html;
-		server_name _;
-		rewrite ^/redirect_me https://youtube.com permanent;
-		location / {
-			 try_files $uri $uri/ =404;
-		}
+sudo chmod -R 755 /var/www/html
+config=\
+"server {
+	listen 80 default_server;
+        listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	rewrite ^/redirect_me https://youtube.com permanent;
+	location / {
+		 try_files \$uri \$uri/ =404;
+	}
 }"
-sudo echo "$config" > /etc/nginx/sites-available/default
+echo -e "$config" > /etc/nginx/sites-available/default
 sudo nginx -t
 sudo service nginx restart
