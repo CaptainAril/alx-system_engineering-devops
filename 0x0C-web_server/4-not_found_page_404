@@ -10,7 +10,7 @@ sudo chmod -R 777 /usr/share/nginx/html
 echo 'Hello World!' > html/index.html
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 sudo chmod -R 755 /var/www/html
-sudo chmod -R 777 /usr/share/nginx/html
+sudo chmod -R 755 /usr/share/nginx/html
 config=\
 "server {
 	listen 80 default_server;
