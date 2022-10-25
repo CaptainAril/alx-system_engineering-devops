@@ -12,11 +12,13 @@ sudo cp -a /etc/haproxy/haproxy.cfg{,.orig}
 script=\
 "\nfrontend load_balancer
 	  bind *:80
+	  mode http
 	  option forwardfor
 	  default_backend web_backend
 
 backend web_backend
 	balance roundrobin
+	mode http
 	server web-01	54.152.2.54:80	check
 	server web-02	3.84.161.121:80	check
 "
@@ -24,4 +26,4 @@ sudo chmod 777 /etc/haproxy/haproxy.cfg
 echo -e "$script" >> /etc/haproxy/haproxy.cfg
 sudo chmod 644 /etc/haproxy/haproxy.cfg
 sudo haproxy -f /etc/haproxy/haproxy.cfg -c
-sudo service haproxy start
+sudo service haproxy restart
