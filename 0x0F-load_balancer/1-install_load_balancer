@@ -24,4 +24,4 @@ sudo chmod 777 /etc/haproxy/haproxy.cfg
 echo -e "$script" >> /etc/haproxy/haproxy.cfg
 sudo chmod 644 /etc/haproxy/haproxy.cfg
 sudo haproxy -f /etc/haproxy/haproxy.cfg -c
-sudo service haproxy restart
+sudo service haproxy start
