@@ -1,22 +1,17 @@
 #!/usr/bin/env bash
-# This script installs a load balancer haproxy and configures it
+# Configure HAproxy so that it send traffic to web-01 and web-02
+# Distribute requests using a roundrobin algorithm
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt install haproxy -y
+sudo echo "ENABLED-=1" >> /etc/default/haproxy
+sudo echo "frontend http_front
+        bind *:80
+        stats uri /haproxy?stats
+        default_backend http_back
 
-apt-get -y install --no-install-recommends software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-2.0
-apt-get -y update
-apt-get -y install haproxy=2.0.\*
-
-cat >> /etc/haproxy/haproxy.cfg << EOF
-frontend
-	bind *:80
-	option forwardfor  
-    default_backend nginx_webservers
-
-backend nginx_webservers
-    balance roundrobin
-    server 34777-web-01 44.210.96.106:80 check
-    server 34777-web-02 54.90.63.204:80 check
-EOF
-
-echo "ENABLED=1" > /etc/default/haproxy
-service haproxy restart
+backend http_back
+        balance roundrobin
+        server 33255-web-01 35.153.52.174:80 check
+        server 33255-web-02 54.157.168.121:80 check" >> /etc/haproxy/haproxy.cfg
+sudo service haproxy start
