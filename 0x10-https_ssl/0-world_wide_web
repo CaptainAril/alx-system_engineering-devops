@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Displays imformation about domain
+func () {
+    if [ -z $2 ]
+    then
+	for i in 'www' 'lb-01' 'web-01' 'web-02'
+	do
+        ip=`dig A $i.$1 | grep -A1 "ANSWER SECTION" | awk '/IN/ {print}' | cut -d "A" -f2 | cut -f2`
+	    echo "The subdomain $i is a A record and points to $ip"
+	done
+    else
+	le=`dig A $2.$1 | grep -A1 "ANSWER SECTION" | awk '/IN/ {print}' | cut -d "A" -f2 | cut -f2`
+	echo "The subdomain $2 is a A record and points to $le"
+    fi
+}
+func $@
