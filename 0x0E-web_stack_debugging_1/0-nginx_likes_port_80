@@ -14,5 +14,7 @@ config=\
 		 try_files \$uri \$uri/ =404;
 	 }
 }"
+sudo chmod -R 777 /etc/nginx/sites-enabled
 echo -e "$config" > /etc/nginx/sites-enabled/default
+sudo chmod -R 644 /etc/nginx/sites-enabled
 sudo service nginx restart
