@@ -25,7 +25,7 @@ if __name__ == "__main__":
             task_title = task.get('title')
             task_stats = task.get('completed')
             usr_dict = {"task": task_title,
-                        "comleted": task_stats,
+                        "completed": task_stats,
                         "username": employee_username}
             usr.get(id).append(usr_dict)
 
