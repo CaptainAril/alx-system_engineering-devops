@@ -1,0 +1,6 @@
+#!/bin/bash
+# Creates a compressed archive of the mysql database dump back up.
+mysqldump tyrell_corp -uroot -p'$1' -r backup.sql
+date=`date +%d-%m-%Y`
+#tar -czvf $date.tar.gz backup
+echo $1
