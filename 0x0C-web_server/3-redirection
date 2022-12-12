@@ -6,7 +6,8 @@ sudo apt-get -y upgrade
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
 sudo chmod -R 777 /var/www/html
-echo 'Hello World!' > html/index.html
+sudo chmod -R 777 /etc/nginx/sites-available
+echo 'Hello World!' > /var/www/html/index.html
 sudo chmod -R 755 /var/www/html
 config=\
 "server {
@@ -21,5 +22,6 @@ config=\
 	}
 }"
 echo -e "$config" > /etc/nginx/sites-available/default
+sudo chmod -R 775 /etc/nginx/sites-available
 sudo nginx -t
 sudo service nginx restart
