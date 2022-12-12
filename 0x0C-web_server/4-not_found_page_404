@@ -7,7 +7,8 @@ sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
 sudo chmod -R 777 /var/www/html
 sudo chmod -R 777 /usr/share/nginx/html
-echo 'Hello World!' > html/index.html
+sudo chmod -R 777 /etc/nginx/sites-available
+echo 'Hello World!' > /var/www/html/index.html
 echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
 sudo chmod -R 755 /var/www/html
 sudo chmod -R 755 /usr/share/nginx/html
@@ -29,5 +30,6 @@ config=\
 	}
 }"
 echo -e "$config" > /etc/nginx/sites-available/default
+sudo chmod -R 775 /etc/nginx/sites-available
 sudo nginx -t
 sudo service nginx restart
