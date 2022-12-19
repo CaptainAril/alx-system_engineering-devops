@@ -16,8 +16,8 @@ script=\
 
 backend web_backend
 	balance roundrobin
-	server 43899-web-01	54.152.2.54:80	check
-	server 43899-web-02	3.84.161.121:80	check
+	server 43899-web-01	54.90.8.245:80	check
+	server 43899-web-02	18.204.16.25:80	check
 "
 sudo chmod 777 /etc/haproxy/haproxy.cfg
 echo -e "$script" >> /etc/haproxy/haproxy.cfg
