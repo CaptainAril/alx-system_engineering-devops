@@ -1,9 +1,8 @@
-
 global
 	log /dev/log	local0
 	log /dev/log	local1 notice
 	chroot /var/lib/haproxy
-	stats socket /run/haproxy/admin.sock mode 660 level admin
+	stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
 	stats timeout 30s
 	user haproxy
 	group haproxy
@@ -38,17 +37,14 @@ defaults
 	option forwardfor
 	option http-server-close
 
-
-
 frontend www-http
 	bind *:80
-	http-request add-header X-Fowarded-Proto:\	http
+	http-request add-header X-Forwarded-Proto:\	http
 	default_backend web_backend
 
 frontend www-https
 	bind *:443 ssl crt /etc/haproxy/certs/liferesound.tech.pem
 	http-request add-header X-Forwarded-Proto:\	https
-	#http-request set-header X-SSL  %[ ssl_ fc ]
 	acl letsencrypt-acl path_beg /.well-known/acme-challenge/
 	use_backend letsencrypt-backend if letsencrypt-acl
 	default_backend web_backend
@@ -56,8 +52,17 @@ frontend www-https
 backend web_backend
 	redirect scheme https code 301 if !{ ssl_fc }
 	balance roundrobin
-	server 43899-web-01	54.152.2.54:80	check
-	server 43899-web-02	3.84.161.121:80	check
+	server 43899-web-01	54.90.8.245:80	check
+	server 43899-web-02	18.204.16.25:80	check
 
 backend letsencrypt-backend
 	server letsencrypt 127.0.0.1:54321
+
+listen stats
+	bind :8800
+	stats enable
+	stats uri /
+	stats hide-version
+	stats auth liferesound:liferesound
+	default_backend web_backend
+
