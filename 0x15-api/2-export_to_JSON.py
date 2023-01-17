@@ -18,12 +18,10 @@ if __name__ == "__main__":
 
     user_status = {}
     user_status[id] = []
-    print(user_status)
     for task in r:
         title = task.get('title')
         status = task.get('completed')
         tk = {"task": title, 'completed': status, 'username': username}
         user_status[id].append(tk)
-    print(user_status)
     with open('{}.json'.format(id), 'w') as f:
         json.dump(user_status, f)
