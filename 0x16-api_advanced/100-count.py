@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """Query Reddit API."""
-import requests
 
 
 def count_words(subreddit, word_list, before=None, count={}):
     """Queries Reddit API, parses the title of all hot articles, and prints
     a sorted count of given keywords."""
+    import requests
 
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
     params = {'limit': 100, 'after': before}
@@ -29,7 +29,7 @@ def count_words(subreddit, word_list, before=None, count={}):
 
     if after is None:
         if len(count) == 0:
-            return None
+            return
 
         sorted_count = sorted(count.items(), key=lambda x: x[1], reverse=True)
         for k, v in sorted_count:
