@@ -36,4 +36,4 @@ def count_words(subreddit, word_list, before=None, count={}):
             if v != 0:
                 print('{}: {}'.format(k, v))
     else:
-        count_words(subreddit, word_list, before=after, count=count)
+        count_words(subreddit, word_list, count=count, before=after)
