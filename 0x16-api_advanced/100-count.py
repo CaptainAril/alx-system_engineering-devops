@@ -13,7 +13,7 @@ def count_words(subreddit, word_list, before=None, count={}):
 
     r = requests.get(url, params=params, headers=header, allow_redirects=False)
     if r.status_code != 200:
-        return 
+        return None
     else:
         after = r.json().get('data').get('after')
 
@@ -29,7 +29,7 @@ def count_words(subreddit, word_list, before=None, count={}):
 
     if after is None:
         if len(count) == 0:
-            return
+            return None
 
         sorted_count = sorted(count.items(), key=lambda x: x[1], reverse=True)
         for k, v in sorted_count:
